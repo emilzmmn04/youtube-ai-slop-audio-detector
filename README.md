@@ -2,9 +2,9 @@
 
 An experimental Google Colab pipeline that combines two weak-but-complementary signals:
 
-1. transcribe a video with word timestamps;
+1. fetch the video's existing YouTube captions with timestamps;
 2. rank long transcript windows for machine-generated writing;
-3. sample 4.04-second audio clips from the highest-ranked regions **and** from uniform control regions;
+3. sample 4-second audio clips from the highest-ranked regions **and** from uniform control regions;
 4. score those clips with a synthetic-speech detector; and
 5. export clip-level evidence for evaluation.
 
@@ -15,21 +15,21 @@ An experimental Google Colab pipeline that combines two weak-but-complementary s
 1. Open the Colab notebook using the badge above.
 2. Choose **Runtime → Change runtime type → T4 GPU**.
 3. Run the setup and configuration cells.
-4. Paste a YouTube URL, or leave it blank to upload a video/audio file.
+4. Paste a YouTube URL. If YouTube blocks Colab's audio download, the notebook prompts you to upload that video's audio/video while still using the URL for captions.
 5. Run the remaining cells in order.
 
 The notebook saves:
 
-- `transcript.json` — timestamped ASR output;
+- `transcript.json` — timestamped YouTube-caption output;
 - `transcript_windows.csv` — transcript-window AI-writing scores;
 - `clip_scores.csv` — selected/control clip synthetic-voice scores; and
 - `run_summary.json` — experimental video-level aggregates.
 
 ## Models
 
-- ASR: [`openai/whisper-small`](https://huggingface.co/openai/whisper-small)
+- Transcript source: YouTube captions via [`youtube-transcript-api`](https://github.com/jdepoix/youtube-transcript-api)
 - Text routing: [`GeorgeDrayson/modernbert-ai-detection-raid-mage`](https://huggingface.co/GeorgeDrayson/modernbert-ai-detection-raid-mage)
-- Synthetic voice: [`Speech-Arena-2025/DF_Arena_1B_V_1`](https://huggingface.co/Speech-Arena-2025/DF_Arena_1B_V_1)
+- Synthetic voice: [`SpeechAntiSpoofingBenchmarks/Wav2Vec2-Small-AntiDeepfake-NDA`](https://huggingface.co/SpeechAntiSpoofingBenchmarks/Wav2Vec2-Small-AntiDeepfake-NDA), an Arena-hosted 95M-parameter detector trained on real and synthetic speech
 
 ## Important limitations
 
@@ -37,7 +37,7 @@ The notebook saves:
 - Uniform control clips are always retained so TTS reading human-written text is not systematically missed.
 - Scores are not calibrated for YouTube. The notebook reports evidence; its provisional threshold is not a production blocking rule.
 - Video/channel-disjoint evaluation and YouTube/AAC/Opus re-encoding tests are required before comparing accuracy.
-- DF Arena is released under a **non-commercial model license**. This repository's MIT license covers only the code and notebook, not downloaded models or datasets.
+- The audio detector is released under **CC BY-NC-SA 4.0**. This repository's MIT license covers only the code and notebook, not downloaded models or datasets.
 - YouTube downloads from Colab can occasionally be blocked. File upload is included as a fallback.
 
 ## Local execution

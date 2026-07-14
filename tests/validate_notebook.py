@@ -25,9 +25,10 @@ def main() -> None:
 
     all_source = "\n".join("".join(cell["source"]) for cell in notebook["cells"])
     required_fragments = [
-        "openai/whisper-small",
+        "youtube_transcript_api",
+        "youtube_captions",
         "GeorgeDrayson/modernbert-ai-detection-raid-mage",
-        "Speech-Arena-2025/DF_Arena_1B_V_1",
+        "SpeechAntiSpoofingBenchmarks/Wav2Vec2-Small-AntiDeepfake-NDA",
         "uniform_control",
         "clip_scores.csv",
     ]
