@@ -1,0 +1,11 @@
+.DS_Store
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+work/
+input_media.*
+input_audio.wav
+transcript.json
+transcript_windows.csv
+clip_scores.csv
+run_summary.json
