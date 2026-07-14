@@ -3,10 +3,10 @@
 An experimental Google Colab pipeline that combines two weak-but-complementary signals:
 
 1. fetch the video's existing YouTube captions with timestamps;
-2. rank long transcript windows for machine-generated writing;
-3. sample 4-second audio clips from the highest-ranked regions **and** from uniform control regions;
+2. score the complete transcript in overlapping 24-, 48-, and 96-word windows;
+3. merge every timestamped region above the text-routing threshold and cover it with overlapping 4-second audio clips;
 4. score those clips with a synthetic-speech detector; and
-5. export clip-level evidence for evaluation.
+5. rank the video from 0–100 using the five strongest voice-model results and export the evidence.
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/emilzmmn04/youtube-ai-slop-audio-detector/blob/main/youtube_ai_slop_detector_colab.ipynb)
 
@@ -22,7 +22,8 @@ The notebook saves:
 
 - `transcript.json` — timestamped YouTube-caption output;
 - `transcript_windows.csv` — transcript-window AI-writing scores;
-- `clip_scores.csv` — selected/control clip synthetic-voice scores; and
+- `detected_text_regions.csv` — merged timestamp regions selected by the text model;
+- `clip_scores.csv` — synthetic-voice scores for every slice inside those regions; and
 - `run_summary.json` — experimental video-level aggregates.
 
 ## Models
@@ -33,8 +34,9 @@ The notebook saves:
 
 ## Important limitations
 
-- Transcript detection is used only to prioritize compute. AI-written text does not prove that a voice is synthetic.
-- Uniform control clips are always retained so TTS reading human-written text is not systematically missed.
+- Transcript detection is used only to select timestamped regions for audio analysis. AI-written text does not prove that a voice is synthetic.
+- The routing threshold controls recall: lower values send more transcript regions to the audio model.
+- This transcript-first design can miss TTS reading human-written text; measure router recall separately from voice-model recall.
 - Scores are not calibrated for YouTube. The notebook reports evidence; its provisional threshold is not a production blocking rule.
 - Video/channel-disjoint evaluation and YouTube/AAC/Opus re-encoding tests are required before comparing accuracy.
 - The audio detector is released under **CC BY-NC-SA 4.0**. This repository's MIT license covers only the code and notebook, not downloaded models or datasets.

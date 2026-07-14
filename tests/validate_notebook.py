@@ -29,7 +29,11 @@ def main() -> None:
         "youtube_captions",
         "GeorgeDrayson/modernbert-ai-detection-raid-mage",
         "SpeechAntiSpoofingBenchmarks/Wav2Vec2-Small-AntiDeepfake-NDA",
-        "uniform_control",
+        "TEXT_WINDOW_SIZES",
+        "selected_for_audio",
+        "detected_text_regions.csv",
+        "transcript_detected",
+        "video_rank_score_0_to_100",
         "clip_scores.csv",
     ]
     for fragment in required_fragments:
