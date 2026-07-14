@@ -27,6 +27,7 @@ def main() -> None:
     required_fragments = [
         "youtube_transcript_api",
         "youtube_captions",
+        "bgutil-ytdlp-pot-provider",
         "GeorgeDrayson/modernbert-ai-detection-raid-mage",
         "SpeechAntiSpoofingBenchmarks/Wav2Vec2-Small-AntiDeepfake-NDA",
         "TEXT_WINDOW_SIZES",

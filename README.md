@@ -15,7 +15,7 @@ An experimental Google Colab pipeline that combines two weak-but-complementary s
 1. Open the Colab notebook using the badge above.
 2. Choose **Runtime → Change runtime type → T4 GPU**.
 3. Run the setup and configuration cells.
-4. Paste a YouTube URL. If YouTube blocks Colab's audio download, the notebook prompts you to upload that video's audio/video while still using the URL for captions.
+4. Paste a YouTube URL. The notebook installs a Colab-side PO-token provider for `yt-dlp`; if YouTube still blocks the datacenter IP, it prompts for a media upload while still using the URL for captions.
 5. Run the remaining cells in order.
 
 The notebook saves:
@@ -41,6 +41,7 @@ The notebook saves:
 - Video/channel-disjoint evaluation and YouTube/AAC/Opus re-encoding tests are required before comparing accuracy.
 - The audio detector is released under **CC BY-NC-SA 4.0**. This repository's MIT license covers only the code and notebook, not downloaded models or datasets.
 - YouTube downloads from Colab can occasionally be blocked. File upload is included as a fallback.
+- The PO-token helper is [`bgutil-ytdlp-pot-provider`](https://github.com/Brainicism/bgutil-ytdlp-pot-provider), installed and run only inside the Colab VM.
 
 ## Local execution
 
